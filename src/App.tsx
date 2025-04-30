@@ -10,6 +10,11 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and leafs to reload.
         </p>
+        <p>
+          Edit <code>src/App.tsx</code> and leafs to reload.
+        </p>
+        
+        
         <a
           className="App-link"
           href="https://reactjs.org"
