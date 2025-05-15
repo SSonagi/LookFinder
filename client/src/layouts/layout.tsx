@@ -27,7 +27,7 @@ function Layout() {
         </nav>
       </header>
       {/* Main */}
-      <main>
+      <main className='font-Roboto font-normal text-base'>
         <Outlet />
       </main>
       {/* Footer */}
