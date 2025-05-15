@@ -4,7 +4,7 @@ import Logo from '../images/Logo.png';
 
 function Layout() {
   return (
-    <div className='h-screen bg-[#F7F7F7] flex flex-col justify-start align-middle'>
+    <div className="h-screen bg-[#F7F7F7] flex flex-col justify-start align-middle">
       {/* Header */}
       <header className="flex flex-row justify-between align-middle px-12 py-5">
         <a href="/">
@@ -16,7 +16,13 @@ function Layout() {
             ['Look Builder', '/builder'],
             ['Profile', '/profile'],
           ].map(([title, url]) => (
-            <a href={url} className="font-RobotoSlab font-normal text-xl text-[#443627] hover:bg-slate-100 hover:text-[#D98324]">{title}</a>
+            <a
+              key={title}
+              href={url}
+              className="font-RobotoSlab font-normal text-xl text-[#443627] hover:bg-slate-100 hover:text-[#D98324]"
+            >
+              {title}
+            </a>
           ))}
         </nav>
       </header>
