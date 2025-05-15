@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Layout from './components/layout';
+import Layout from './layouts/layout';
 import Home from './pages/home';
 import Builder from './pages/builder';
 import Outfits from './pages/outfits';
@@ -16,7 +16,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>
-	</BrowserRouter>
+    </BrowserRouter>
   );
 }
 

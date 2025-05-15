@@ -4,7 +4,12 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}", // Add the relevant paths to your project
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        RobotoSlab: ["Roboto Slab", "serif"],
+        Roboto: ["Roboto", "serif"]
+      }
+    },
   },
   plugins: [],
 }
