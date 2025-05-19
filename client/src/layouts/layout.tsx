@@ -6,7 +6,7 @@ function Layout() {
   return (
     <div className="h-screen bg-[#F7F7F7] flex flex-col justify-start align-middle">
       {/* Header */}
-      <header className="flex flex-row justify-between align-middle px-12 py-5">
+      <header className="flex flex-row justify-between align-middle px-12 py-5 border-b-2 border-[#443627]/20">
         <a href="/">
           <img className="m-0" src={Logo} width={266} height={50} alt="LookFinder" />
         </a>
@@ -27,7 +27,7 @@ function Layout() {
         </nav>
       </header>
       {/* Main */}
-      <main className='font-Roboto font-normal text-base'>
+      <main className='font-Roboto text-primary font-normal text-lg'>
         <Outlet />
       </main>
       {/* Footer */}
