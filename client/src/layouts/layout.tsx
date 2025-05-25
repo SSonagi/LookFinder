@@ -15,6 +15,7 @@ function Layout() {
             ['Your Looks', '/outfits'],
             ['Look Builder', '/builder'],
             ['Profile', '/profile'],
+            ['About',  '/about']
           ].map(([title, url]) => (
             <a
               key={title}
