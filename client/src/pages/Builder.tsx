@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Outfit from '../components/outift';
 import { IOutfit, IPiece } from '../appTypes/outfit.types';
-import AmazonImg from '../images/amazon.png';
+import AmazonImg from '../images/Amazon.png';
+import ShoppingBagImg from '../images/ShoppingBag.png';
+import RemoveImg from '../images/Remove.png';
 
 const Builder = () => {
   const [outfit, setOutfit] = useState<IOutfit>({
@@ -93,30 +95,31 @@ const Builder = () => {
 
   return (
     <div className="flex flex-col justify-start items-center">
-      <h1 className="">Outfit Builder</h1>
+      <h1 className="text-2xl p-3">Outfit Builder</h1>
       <div className="flex flex-row justify-center w-full">
         <div className="left w-60 min-w-60 h-[33rem]">
           <Outfit outfit={outfit} />
         </div>
-        <div className="flex flex-col justify-start items-center">
-          <div className="join w-1/2">
-            <input type="text" className="input join-item" placeholder="Describe the look..." />
+        <div className="px-5">
+          <div className="join w-full">
+            <input type="text" className="input join-item w-full" placeholder="Describe the look..." />
             <button className="btn join-item font-light">Find</button>
           </div>
-          <div className="overflow-x-auto">
+          <div className="overflow-auto h-[30.5rem]">
             <table className="table table-md">
               {/* head */}
-              <thead>
-                <tr className='border-(length: 1px) border-[#443627]/50'>
+              <thead className='sticky top-0 bg-base-100 z-10'>
+                <tr className='shadow-md'>
                   <th>Type</th>
                   <th>Selection</th>
                   <th>Price</th>
                   <th>Store</th>
+                  <th></th>
                 </tr>
               </thead>
               {[...outfit.head, ...outfit.top, ...outfit.bottom, ...outfit.shoe].map((piece) => (
                 <tbody>
-                  <tr className='border-b-0 border-(length: 1px) border-[#443627]/50'>
+                  <tr className='border-b-2 border-[#443627]/10'>
                     <th>
                       <label>
                         {piece.description}
@@ -140,16 +143,24 @@ const Builder = () => {
                       {piece.price}
                     </td>
                     <td>
-                      <img src={getShopLogo(piece.shop)} className='w-16'/>
+                      <img src={getShopLogo(piece.shop)} className='w-16 pt-1'/>
                     </td>
                     <th>
-                      <button className="btn btn-ghost btn-xs">details</button>
+                      <button className="btn btn-ghost btn-xs mr-3" onClick={() => window.open(piece.shop_link)}>
+                        <img src={ShoppingBagImg} className='w-5'/>
+                      </button>
+                      <button className="btn btn-ghost btn-xs">
+                        <img src={RemoveImg} className='w-5'/>
+                      </button>
                     </th>
                   </tr>
                 </tbody>
               ))}
             </table>
           </div>
+          <button className='btn btn-secondary btn-xs rounded-xl'>+ Add Clothing</button>
+          <div className='divider m-1 mt-1'/>
+          <div className='text-end'>Total Price: $194.89 - $213.95</div>
         </div>
       </div>
     </div>
