@@ -4,6 +4,7 @@ import Home from './pages/home';
 import Builder from './pages/builder';
 import Outfits from './pages/outfits';
 import Profile from './pages/profile';
+import About from './pages/About';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="builder" element={<Builder />} />
           <Route path="outfits" element={<Outfits />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="about" element={<About />} />
         </Route>
       </Routes>
     </BrowserRouter>

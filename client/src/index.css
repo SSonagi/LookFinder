@@ -3,6 +3,55 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  [data-theme="mytheme"] {
+    /* Primary */
+    --color-primary: #443627;
+    --color-primary-focus: #392d20;
+    --color-primary-content: #F7F7F7; /* text/icon color on primary bg */
+
+    /* Secondary */
+    --color-secondary: #D98324;
+    --color-secondary-focus: #c06e1e;
+    --color-secondary-content: #F7F7F7;
+
+    /* Accent */
+    --color-accent: #EFDCAB;
+    --color-accent-focus: #d9c798;
+    --color-accent-content: #443627;
+
+    /* Neutral (background, cards, etc.) */
+    --color-neutral: #F2F6D0;
+    --color-neutral-focus: #d6dbb4;
+    --color-neutral-content: #443627;
+
+    /* Base */
+    --color-base-100: #F7F7F7;
+    --color-base-200: #EFEFEF;
+    --color-base-300: #E2E2E2; 
+    --color-base-content: #443627;
+
+    /* Semantic */
+    --color-info: #2094f3;
+    --color-info-content: #F7F7F7;
+
+    --color-success: #009485;
+    --color-success-content: #F7F7F7;
+
+    --color-warning: #ff9900;
+    --color-warning-content: #F7F7F7;
+
+    --color-error: #ff5724;
+    --color-error-content: #F7F7F7;
+  }
+}
+
+@layer base {
+  html {
+    font-size: 125%;
+  }
+}
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
