@@ -1,5 +1,5 @@
 import { IOutfit, IPiece } from '../appTypes/outfit.types';
-import Piece from './piece';
+import Piece from './Piece';
 import OutlineImg from '../images/Outline.png';
 
 const Outfit = ({outfit}: {outfit: IOutfit}) => {

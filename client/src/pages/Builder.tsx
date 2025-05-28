@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import Outfit from '../components/outift';
+import Outfit from '../components/Outift';
 import { IOutfit, IPiece } from '../appTypes/outfit.types';
 import AmazonImg from '../images/Amazon.png';
 import ShoppingBagImg from '../images/ShoppingBag.png';
