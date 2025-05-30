@@ -17,8 +17,9 @@ const Builder = () => {
         price: '$17.99 - $28.99',
         shop: 'amazon',
         img_link: 'https://m.media-amazon.com/images/I/61pSuZP7SVL._AC_SX679_.jpg',
-        shop_link: 'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1'
-      }
+        shop_link:
+          'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1',
+      },
     ],
     top: [
       {
@@ -27,8 +28,9 @@ const Builder = () => {
         description: 'Hat',
         price: '$17.99 - $28.99',
         shop: 'amazon',
-        img_link: 'https://m.media-amazon.com/images/I/61pSuZP7SVL._AC_SX679_.jpg',
-        shop_link: 'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1'
+        img_link: 'https://m.media-amazon.com/images/I/61Y8b092aUL._AC_SX679_.jpg',
+        shop_link:
+          'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1',
       },
       {
         id: uuidv4(),
@@ -37,17 +39,9 @@ const Builder = () => {
         price: '$17.99 - $28.99',
         shop: 'amazon',
         img_link: 'https://m.media-amazon.com/images/I/61pSuZP7SVL._AC_SX679_.jpg',
-        shop_link: 'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1'
+        shop_link:
+          'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1',
       },
-      {
-        id: uuidv4(),
-        title: 'Flexfit Unisex Wooly Combed Twill Cap - 6277',
-        description: 'Hat',
-        price: '$17.99 - $28.99',
-        shop: 'amazon',
-        img_link: 'https://m.media-amazon.com/images/I/61pSuZP7SVL._AC_SX679_.jpg',
-        shop_link: 'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1'
-      }
     ],
     bottom: [
       {
@@ -57,7 +51,8 @@ const Builder = () => {
         price: '$17.99 - $28.99',
         shop: 'amazon',
         img_link: 'https://m.media-amazon.com/images/I/61pSuZP7SVL._AC_SX679_.jpg',
-        shop_link: 'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1'
+        shop_link:
+          'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1',
       },
       {
         id: uuidv4(),
@@ -66,8 +61,9 @@ const Builder = () => {
         price: '$17.99 - $28.99',
         shop: 'amazon',
         img_link: 'https://m.media-amazon.com/images/I/61pSuZP7SVL._AC_SX679_.jpg',
-        shop_link: 'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1'
-      }
+        shop_link:
+          'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1',
+      },
     ],
     shoe: [
       {
@@ -77,13 +73,14 @@ const Builder = () => {
         price: '$17.99 - $28.99',
         shop: 'amazon',
         img_link: 'https://m.media-amazon.com/images/I/61pSuZP7SVL._AC_SX679_.jpg',
-        shop_link: 'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1'
-      }
-    ]
-  }); 
+        shop_link:
+          'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1',
+      },
+    ],
+  });
 
-  let getShopLogo = (shop: String) => {
-    switch(shop) {
+  let getShopLogo = (shop: string) => {
+    switch (shop) {
       case 'amazon': {
         return AmazonImg;
       }
@@ -91,7 +88,7 @@ const Builder = () => {
         console.log('Non-existant shop');
       }
     }
-  }
+  };
 
   return (
     <div className="flex flex-col justify-start items-center">
@@ -102,14 +99,18 @@ const Builder = () => {
         </div>
         <div className="px-5">
           <div className="join w-full">
-            <input type="text" className="input join-item w-full" placeholder="Describe the look..." />
+            <input
+              type="text"
+              className="input join-item w-full"
+              placeholder="Describe the look..."
+            />
             <button className="btn join-item font-light">Find</button>
           </div>
           <div className="overflow-auto h-[30.5rem]">
             <table className="table table-md">
               {/* head */}
-              <thead className='sticky top-0 bg-base-100 z-10'>
-                <tr className='shadow-md'>
+              <thead className="sticky top-0 bg-base-100 z-10">
+                <tr className="shadow-md">
                   <th>Type</th>
                   <th>Selection</th>
                   <th>Price</th>
@@ -118,20 +119,16 @@ const Builder = () => {
                 </tr>
               </thead>
               {[...outfit.head, ...outfit.top, ...outfit.bottom, ...outfit.shoe].map((piece) => (
-                <tbody>
-                  <tr className='border-b-2 border-[#443627]/10'>
+                <tbody key={piece.id}>
+                  <tr className="border-b-2 border-[#443627]/10">
                     <th>
-                      <label>
-                        {piece.description}
-                      </label>
+                      <label>{piece.description}</label>
                     </th>
                     <td>
                       <div className="flex items-center gap-3">
                         <div className="avatar">
-                          <div className="mask mask-squircle h-12 w-12">
-                            <img
-                              src={piece.img_link}
-                              alt={piece.description} />
+                          <div className="border-[#443627] border-opacity-40 border-2 h-12 w-12">
+                            <img src={piece.img_link} alt={piece.description} />
                           </div>
                         </div>
                         <div>
@@ -139,18 +136,19 @@ const Builder = () => {
                         </div>
                       </div>
                     </td>
+                    <td>{piece.price}</td>
                     <td>
-                      {piece.price}
-                    </td>
-                    <td>
-                      <img src={getShopLogo(piece.shop)} className='w-16 pt-1'/>
+                      <img src={getShopLogo(piece.shop)} alt="Shop" className="w-16 pt-1" />
                     </td>
                     <th>
-                      <button className="btn btn-ghost btn-xs mr-3" onClick={() => window.open(piece.shop_link)}>
-                        <img src={ShoppingBagImg} className='w-5'/>
+                      <button
+                        className="btn btn-ghost btn-xs mr-3"
+                        onClick={() => window.open(piece.shop_link)}
+                      >
+                        <img src={ShoppingBagImg} alt="Shop Link" className="w-5" />
                       </button>
                       <button className="btn btn-ghost btn-xs">
-                        <img src={RemoveImg} className='w-5'/>
+                        <img src={RemoveImg} alt="Remove Piece" className="w-5" />
                       </button>
                     </th>
                   </tr>
@@ -158,13 +156,13 @@ const Builder = () => {
               ))}
             </table>
           </div>
-          <button className='btn btn-secondary btn-xs rounded-xl'>+ Add Clothing</button>
-          <div className='divider m-1 mt-1'/>
-          <div className='text-end'>Total Price: $194.89 - $213.95</div>
+          <button className="btn btn-secondary btn-xs rounded-xl">+ Add Clothing</button>
+          <div className="divider m-1 mt-1" />
+          <div className="text-end">Total Price: $194.89 - $213.95</div>
         </div>
       </div>
     </div>
   );
-};  
+};
 
 export default Builder;

@@ -15,7 +15,7 @@ function Layout() {
             ['Your Looks', '/outfits'],
             ['Look Builder', '/builder'],
             ['Profile', '/profile'],
-            ['About',  '/about']
+            ['About', '/about'],
           ].map(([title, url]) => (
             <a
               key={title}
@@ -28,7 +28,7 @@ function Layout() {
         </nav>
       </header>
       {/* Main */}
-      <main className='font-Roboto text-primary font-normal text-lg px-10'>
+      <main className="font-Roboto text-primary font-normal text-lg px-10">
         <Outlet />
       </main>
       {/* Footer */}
