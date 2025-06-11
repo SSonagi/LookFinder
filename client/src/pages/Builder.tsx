@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import Outfit from '../components/Outift';
+import Outfit from '../components/Outfit';
 import { IOutfit, IPiece } from '../appTypes/outfit.types';
 import Modal from '../components/Modal';
 import Row from '../components/Table/Row';
