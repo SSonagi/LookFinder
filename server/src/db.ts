@@ -17,6 +17,7 @@ export class DatabaseConnection {
         database: process.env.DB_NAME,
         password: process.env.DB_PASSWORD,
         port: Number(process.env.DB_PORT),
+        ssl: true
       });
     }
     return DatabaseConnection.pool;

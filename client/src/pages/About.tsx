@@ -16,7 +16,7 @@ const About = () => {
         <p className="text-lg leading-relaxed">
           At <strong>Looks Reimagined</strong>, our mission is to empower individuals to express
           their unique style through technology-driven, sustainable fashion. We believe that
-          everyone deserves access to personalized style, and we're here to make that simple,
+          everyone deserves access to personalized style, and we\'re here to make that simple,
           affordable, and exciting.
         </p>
       </section>
@@ -26,7 +26,7 @@ const About = () => {
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold mb-4">Our Goal</h2>
           <p className="text-lg leading-relaxed">
-            We aim to bridge the gap between high-end style and everyday wear. Whether you're
+            We aim to bridge the gap between high-end style and everyday wear. Whether you\'re
             looking for smart recommendations, size-accurate fits, or ethical fashion choices — our
             AI-powered platform delivers personalized style curated just for you.
           </p>
@@ -37,7 +37,7 @@ const About = () => {
       <section className="py-16 px-6 max-w-5xl mx-auto">
         <h2 className="text-3xl font-bold mb-4">Who We Are</h2>
         <p className="text-lg leading-relaxed">
-          We're a passionate team of creatives, technologists, and fashion lovers. With a blend of
+          We\'re a passionate team of creatives, technologists, and fashion lovers. With a blend of
           design, data, and cultural insight, we’re building something bigger than clothes — we’re
           building confidence.
         </p>

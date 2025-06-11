@@ -5,7 +5,7 @@ import { IOutfit, IPiece } from '../appTypes/outfit.types';
 import Modal from '../components/Modal';
 import Row from '../components/Table/Row';
 
-const outfitReducer = (state: IOutfit, action: any): IOutfit => {
+const outfitReducer = (state: IOutfit, action: { type: string; piece: IPiece }): IOutfit => {
   switch (action.type) {
     case 'ADD_HEAD':
       return {
@@ -60,7 +60,7 @@ const Builder = () => {
     bottom: [],
     shoe: [],
   });
-  
+
   return (
     <div className="flex flex-col justify-start items-center">
       <h1 className="text-2xl p-3">Outfit Builder</h1>
@@ -90,22 +90,40 @@ const Builder = () => {
                 </tr>
               </thead>
               {outfit.head.map((piece) => (
-                <Row piece={piece} handleRemove={() => dispatch({ type: "REMOVE_HEAD", piece: piece })}/>
+                <Row
+                  key={piece.id}
+                  piece={piece}
+                  handleRemove={() => dispatch({ type: 'REMOVE_HEAD', piece: piece })}
+                />
               ))}
               {outfit.top.map((piece) => (
-                <Row piece={piece} handleRemove={() => dispatch({ type: "REMOVE_TOP", piece: piece })}/>
+                <Row
+                  key={piece.id}
+                  piece={piece}
+                  handleRemove={() => dispatch({ type: 'REMOVE_TOP', piece: piece })}
+                />
               ))}
               {outfit.bottom.map((piece) => (
-                <Row piece={piece} handleRemove={() => dispatch({ type: "REMOVE_BOTTOM", piece: piece })}/>
+                <Row
+                  key={piece.id}
+                  piece={piece}
+                  handleRemove={() => dispatch({ type: 'REMOVE_BOTTOM', piece: piece })}
+                />
               ))}
               {outfit.shoe.map((piece) => (
-                <Row piece={piece} handleRemove={() => dispatch({ type: "REMOVE_SHOE", piece: piece })}/>
+                <Row
+                  key={piece.id}
+                  piece={piece}
+                  handleRemove={() => dispatch({ type: 'REMOVE_SHOE', piece: piece })}
+                />
               ))}
             </table>
           </div>
-          <label htmlFor='my_modal' className="btn btn-secondary btn-xs rounded-xl">+ Add Clothing</label>
+          <label htmlFor="my_modal" className="btn btn-secondary btn-xs rounded-xl">
+            + Add Clothing
+          </label>
           <input type="checkbox" id="my_modal" className="modal-toggle" />
-          <Modal id="my_modal" dispatch={dispatch}/>
+          <Modal id="my_modal" dispatch={dispatch} />
           <div className="divider m-1 mt-1" />
           <div className="text-end">Total Price: $194.89 - $213.95</div>
         </div>
