@@ -1,5 +1,5 @@
 import AmazonImg from '../images/Amazon.png';
-import { getPieces } from '../api/apiPieces';
+import { getPieces } from '../api/piece.api';
 import { useEffect, useState } from 'react';
 import { IPiece } from '../appTypes/outfit.types';
 import React from 'react';
