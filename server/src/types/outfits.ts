@@ -1,5 +1,9 @@
-export default interface Outfit {
-    id: number;
-    user_id: number;
-    title: string;
+import IPiece from './piece';
+
+export default interface IOutfit {
+    id: string;
+    head: IPiece[];
+    top: IPiece[];
+    bottom: IPiece[];
+    shoe: IPiece[];
 }

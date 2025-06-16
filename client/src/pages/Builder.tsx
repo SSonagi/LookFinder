@@ -1,94 +1,65 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import Outfit from '../components/Outift';
+import Outfit from '../components/Outfit';
 import { IOutfit, IPiece } from '../appTypes/outfit.types';
-import AmazonImg from '../images/Amazon.png';
-import ShoppingBagImg from '../images/ShoppingBag.png';
-import RemoveImg from '../images/Remove.png';
+import Modal from '../components/Modal';
+import Row from '../components/Table/Row';
+
+const outfitReducer = (state: IOutfit, action: { type: string; piece: IPiece }): IOutfit => {
+  switch (action.type) {
+    case 'ADD_HEAD':
+      return {
+        ...state,
+        head: [...state.head, action.piece],
+      };
+    case 'REMOVE_HEAD':
+      return {
+        ...state,
+        head: state.head.filter((piece) => piece.id !== action.piece.id),
+      };
+    case 'ADD_TOP':
+      return {
+        ...state,
+        top: [...state.top, action.piece],
+      };
+    case 'REMOVE_TOP':
+      return {
+        ...state,
+        top: state.top.filter((piece) => piece.id !== action.piece.id),
+      };
+    case 'ADD_BOTTOM':
+      return {
+        ...state,
+        bottom: [...state.bottom, action.piece],
+      };
+    case 'REMOVE_BOTTOM':
+      return {
+        ...state,
+        bottom: state.bottom.filter((piece) => piece.id !== action.piece.id),
+      };
+    case 'ADD_SHOE':
+      return {
+        ...state,
+        shoe: [...state.shoe, action.piece],
+      };
+    case 'REMOVE_SHOE':
+      return {
+        ...state,
+        shoe: state.shoe.filter((piece) => piece.id !== action.piece.id),
+      };
+    default:
+      throw new Error();
+  }
+};
 
 const Builder = () => {
-  const [outfit, setOutfit] = useState<IOutfit>({
+  const [outfit, dispatch] = useReducer(outfitReducer, {
     id: uuidv4(),
-    head: [
-      {
-        id: uuidv4(),
-        title: 'Flexfit Unisex Wooly Combed Twill Cap - 6277',
-        description: 'Hat',
-        price: '$17.99 - $28.99',
-        shop: 'amazon',
-        img_link: 'https://m.media-amazon.com/images/I/61pSuZP7SVL._AC_SX679_.jpg',
-        shop_link:
-          'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1',
-      },
-    ],
-    top: [
-      {
-        id: uuidv4(),
-        title: 'Flexfit Unisex Wooly Combed Twill Cap - 6277',
-        description: 'Hat',
-        price: '$17.99 - $28.99',
-        shop: 'amazon',
-        img_link: 'https://m.media-amazon.com/images/I/61Y8b092aUL._AC_SX679_.jpg',
-        shop_link:
-          'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1',
-      },
-      {
-        id: uuidv4(),
-        title: 'Flexfit Unisex Wooly Combed Twill Cap - 6277',
-        description: 'Hat',
-        price: '$17.99 - $28.99',
-        shop: 'amazon',
-        img_link: 'https://m.media-amazon.com/images/I/61pSuZP7SVL._AC_SX679_.jpg',
-        shop_link:
-          'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1',
-      },
-    ],
-    bottom: [
-      {
-        id: uuidv4(),
-        title: 'Flexfit Unisex Wooly Combed Twill Cap - 6277',
-        description: 'Hat',
-        price: '$17.99 - $28.99',
-        shop: 'amazon',
-        img_link: 'https://m.media-amazon.com/images/I/61pSuZP7SVL._AC_SX679_.jpg',
-        shop_link:
-          'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1',
-      },
-      {
-        id: uuidv4(),
-        title: 'Flexfit Unisex Wooly Combed Twill Cap - 6277',
-        description: 'Hat',
-        price: '$17.99 - $28.99',
-        shop: 'amazon',
-        img_link: 'https://m.media-amazon.com/images/I/61pSuZP7SVL._AC_SX679_.jpg',
-        shop_link:
-          'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1',
-      },
-    ],
-    shoe: [
-      {
-        id: uuidv4(),
-        title: 'Flexfit Unisex Wooly Combed Twill Cap - 6277',
-        description: 'Hat',
-        price: '$17.99 - $28.99',
-        shop: 'amazon',
-        img_link: 'https://m.media-amazon.com/images/I/61pSuZP7SVL._AC_SX679_.jpg',
-        shop_link:
-          'https://www.amazon.ca/Flexfit-Unisex-Wooly-Combed-Twill/dp/B07LB9LVGX?th=1&psc=1',
-      },
-    ],
+    head: [],
+    top: [],
+    bottom: [],
+    shoe: [],
   });
-
-  let getShopLogo = (shop: string) => {
-    switch (shop) {
-      case 'amazon': {
-        return AmazonImg;
-      }
-      default: {
-        console.log('Non-existant shop');
-      }
-    }
-  };
 
   return (
     <div className="flex flex-col justify-start items-center">
@@ -118,45 +89,41 @@ const Builder = () => {
                   <th></th>
                 </tr>
               </thead>
-              {[...outfit.head, ...outfit.top, ...outfit.bottom, ...outfit.shoe].map((piece) => (
-                <tbody key={piece.id}>
-                  <tr className="border-b-2 border-[#443627]/10">
-                    <th>
-                      <label>{piece.description}</label>
-                    </th>
-                    <td>
-                      <div className="flex items-center gap-3">
-                        <div className="avatar">
-                          <div className="border-[#443627] border-opacity-40 border-2 h-12 w-12">
-                            <img src={piece.img_link} alt={piece.description} />
-                          </div>
-                        </div>
-                        <div>
-                          <div className="font-bold max-w-80 overflow-hidden">{piece.title}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>{piece.price}</td>
-                    <td>
-                      <img src={getShopLogo(piece.shop)} alt="Shop" className="w-16 pt-1" />
-                    </td>
-                    <th>
-                      <button
-                        className="btn btn-ghost btn-xs mr-3"
-                        onClick={() => window.open(piece.shop_link)}
-                      >
-                        <img src={ShoppingBagImg} alt="Shop Link" className="w-5" />
-                      </button>
-                      <button className="btn btn-ghost btn-xs">
-                        <img src={RemoveImg} alt="Remove Piece" className="w-5" />
-                      </button>
-                    </th>
-                  </tr>
-                </tbody>
+              {outfit.head.map((piece) => (
+                <Row
+                  key={piece.id}
+                  piece={piece}
+                  handleRemove={() => dispatch({ type: 'REMOVE_HEAD', piece: piece })}
+                />
+              ))}
+              {outfit.top.map((piece) => (
+                <Row
+                  key={piece.id}
+                  piece={piece}
+                  handleRemove={() => dispatch({ type: 'REMOVE_TOP', piece: piece })}
+                />
+              ))}
+              {outfit.bottom.map((piece) => (
+                <Row
+                  key={piece.id}
+                  piece={piece}
+                  handleRemove={() => dispatch({ type: 'REMOVE_BOTTOM', piece: piece })}
+                />
+              ))}
+              {outfit.shoe.map((piece) => (
+                <Row
+                  key={piece.id}
+                  piece={piece}
+                  handleRemove={() => dispatch({ type: 'REMOVE_SHOE', piece: piece })}
+                />
               ))}
             </table>
           </div>
-          <button className="btn btn-secondary btn-xs rounded-xl">+ Add Clothing</button>
+          <label htmlFor="my_modal" className="btn btn-secondary btn-xs rounded-xl">
+            + Add Clothing
+          </label>
+          <input type="checkbox" id="my_modal" className="modal-toggle" />
+          <Modal id="my_modal" dispatch={dispatch} />
           <div className="divider m-1 mt-1" />
           <div className="text-end">Total Price: $194.89 - $213.95</div>
         </div>

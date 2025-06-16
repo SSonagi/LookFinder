@@ -1,6 +1,6 @@
 import { Pool } from 'pg';
 import { DatabaseConnection } from '../db';
-import Outfit from '../types/outfits'
+import IOutfit from '../types/outfits'
 
 export default class outfitService {
     private pool: Pool;
@@ -11,7 +11,7 @@ export default class outfitService {
         this.user_current = _user
     }
     
-    public async getOutfits(): Promise<Outfit[]> {
+    public async getOutfits(): Promise<IOutfit[]> {
         const client = await this.pool.connect();
         try {
             const result = await client.query('SELECT * FROM outfits');
