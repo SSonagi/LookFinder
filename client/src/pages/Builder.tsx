@@ -7,45 +7,15 @@ import Row from '../components/Table/Row';
 
 const outfitReducer = (state: IOutfit, action: { type: string; piece: IPiece }): IOutfit => {
   switch (action.type) {
-    case 'ADD_HEAD':
+    case 'ADD':
       return {
         ...state,
-        head: [...state.head, action.piece],
+        pieces: [...state.pieces, action.piece],
       };
-    case 'REMOVE_HEAD':
+    case 'REMOVE':
       return {
         ...state,
-        head: state.head.filter((piece) => piece.id !== action.piece.id),
-      };
-    case 'ADD_TOP':
-      return {
-        ...state,
-        top: [...state.top, action.piece],
-      };
-    case 'REMOVE_TOP':
-      return {
-        ...state,
-        top: state.top.filter((piece) => piece.id !== action.piece.id),
-      };
-    case 'ADD_BOTTOM':
-      return {
-        ...state,
-        bottom: [...state.bottom, action.piece],
-      };
-    case 'REMOVE_BOTTOM':
-      return {
-        ...state,
-        bottom: state.bottom.filter((piece) => piece.id !== action.piece.id),
-      };
-    case 'ADD_SHOE':
-      return {
-        ...state,
-        shoe: [...state.shoe, action.piece],
-      };
-    case 'REMOVE_SHOE':
-      return {
-        ...state,
-        shoe: state.shoe.filter((piece) => piece.id !== action.piece.id),
+        pieces: state.pieces.filter((piece) => piece.id !== action.piece.id),
       };
     default:
       throw new Error();
@@ -55,10 +25,7 @@ const outfitReducer = (state: IOutfit, action: { type: string; piece: IPiece }):
 const Builder = () => {
   const [outfit, dispatch] = useReducer(outfitReducer, {
     id: uuidv4(),
-    head: [],
-    top: [],
-    bottom: [],
-    shoe: [],
+    pieces: [],
   });
 
   return (
@@ -89,32 +56,11 @@ const Builder = () => {
                   <th></th>
                 </tr>
               </thead>
-              {outfit.head.map((piece) => (
+              {outfit.pieces.map((piece) => (
                 <Row
                   key={piece.id}
                   piece={piece}
-                  handleRemove={() => dispatch({ type: 'REMOVE_HEAD', piece: piece })}
-                />
-              ))}
-              {outfit.top.map((piece) => (
-                <Row
-                  key={piece.id}
-                  piece={piece}
-                  handleRemove={() => dispatch({ type: 'REMOVE_TOP', piece: piece })}
-                />
-              ))}
-              {outfit.bottom.map((piece) => (
-                <Row
-                  key={piece.id}
-                  piece={piece}
-                  handleRemove={() => dispatch({ type: 'REMOVE_BOTTOM', piece: piece })}
-                />
-              ))}
-              {outfit.shoe.map((piece) => (
-                <Row
-                  key={piece.id}
-                  piece={piece}
-                  handleRemove={() => dispatch({ type: 'REMOVE_SHOE', piece: piece })}
+                  handleRemove={() => dispatch({ type: 'REMOVE', piece: piece })}
                 />
               ))}
             </table>
