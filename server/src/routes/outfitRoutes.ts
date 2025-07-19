@@ -5,5 +5,6 @@ const router = Router();
 const outfitController = new OutfitController();
 
 router.get("/", (req, res) =>  outfitController.getOutfits(req, res));
+router.get("/:id", (req, res) =>  outfitController.getOutfits(req, res));
 
 export default router;

@@ -1,15 +1,16 @@
 import AmazonImg from '../images/Amazon.png';
 import { getPieces } from '../api/piece.api';
 import { useEffect, useState } from 'react';
-import { IPiece } from '../appTypes/outfit.types';
+import { IOutfitPiece, IPiece } from '../appTypes/outfit.types';
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 const Modal = ({
   id,
   dispatch,
 }: {
   id: string;
-  dispatch: React.ActionDispatch<[action: { type: string; piece: IPiece }]>;
+  dispatch: React.ActionDispatch<[action: { type: string; piece: IOutfitPiece }]>;
 }) => {
   const [loading, setLoading] = useState(true);
   const [pieces, setPieces] = useState<IPiece[]>([]);
@@ -89,7 +90,14 @@ const Modal = ({
                   <th>
                     <button 
                       className="btn btn-secondary btn-xs w-16" 
-                      onClick={() => dispatch({ type: 'ADD', piece: piece })}
+                      onClick={() => dispatch({ type: 'ADD', piece: {
+                        id: uuidv4(),
+                        posx: 0,
+                        posy: 0,
+                        width: 20,
+                        height: 20,
+                        piece: piece,
+                      }})}
                     >
                       Add
                     </button>

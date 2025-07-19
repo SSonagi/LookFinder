@@ -1,4 +1,4 @@
-import { IPiece } from '../../appTypes/outfit.types';
+import { IOutfitPiece, IPiece } from '../../appTypes/outfit.types';
 import React from 'react';
 
 import AmazonImg from '../../images/Amazon.png';

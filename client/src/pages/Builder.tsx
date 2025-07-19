@@ -1,21 +1,42 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Outfit from '../components/Outfit';
-import { IOutfit, IPiece } from '../appTypes/outfit.types';
+import { IOutfitPiece } from '../appTypes/outfit.types';
 import Modal from '../components/Modal';
 import Row from '../components/Table/Row';
+import { getPiecesFromOutfit, addPieceToOutfit, RemovePieceOnOutfit } from '../api/piece.api';
+import { useParams } from 'react-router-dom';
 
-const outfitReducer = (state: IOutfit, action: { type: string; piece: IPiece }): IOutfit => {
+const outfitReducer = (
+  state: { title: string; outfitId: string; pieces: IOutfitPiece[] },
+  action: { type: string; piece: IOutfitPiece }
+): { title: string; outfitId: string; pieces: IOutfitPiece[] } => {
   switch (action.type) {
-    case 'ADD':
-      return {
-        ...state,
-        pieces: [...state.pieces, action.piece],
+    case 'SET': {
+      return { 
+        ...state, 
+        pieces: [
+          ...state.pieces,
+          action.piece
+        ],
       };
-    case 'REMOVE':
+    }
+    case 'ADD': {
+      const id = uuidv4();
+      addPieceToOutfit(id, state.outfitId, action.piece.id);
       return {
         ...state,
-        pieces: state.pieces.filter((piece) => piece.id !== action.piece.id),
+        pieces: [
+          ...state.pieces,
+          action.piece
+        ],
+      };
+    }
+    case 'REMOVE':
+      RemovePieceOnOutfit(action.piece.id);
+      return {
+        ...state,
+        pieces: state.pieces?.filter((piece) => piece.id !== action.piece.id),
       };
     default:
       throw new Error();
@@ -23,17 +44,38 @@ const outfitReducer = (state: IOutfit, action: { type: string; piece: IPiece }):
 };
 
 const Builder = () => {
-  const [outfit, dispatch] = useReducer(outfitReducer, {
-    id: uuidv4(),
-    pieces: [],
-  });
+  const hasRun = useRef(false);
+
+  const { outfitId } = useParams<{ outfitId: string }>();
+
+  if (!outfitId) {
+    return <div>Error: outfit ID is required</div>;
+  }
+
+  console.log(outfitId);
+
+  useEffect(() => {
+    if (hasRun.current) return;
+    hasRun.current = true;
+
+    const fetchPieces = async () => {
+      const pieces = await getPiecesFromOutfit(outfitId);
+      for (var piece of pieces ? pieces : []) {
+        dispatch({ type: 'SET', piece });
+      }
+    };
+
+    fetchPieces();
+  }, []);
+
+  const [outfits, dispatch] = useReducer(outfitReducer, {title: 'test', outfitId: outfitId, pieces: []});
 
   return (
     <div className="flex flex-col justify-start items-center">
       <h1 className="text-2xl p-3">Outfit Builder</h1>
       <div className="flex flex-row justify-center w-full">
         <div className="left w-60 min-w-60 h-[33rem]">
-          <Outfit outfit={outfit} />
+          <Outfit outfit={outfits} />
         </div>
         <div className="px-5">
           <div className="join w-full">
@@ -56,11 +98,11 @@ const Builder = () => {
                   <th></th>
                 </tr>
               </thead>
-              {outfit.pieces.map((piece) => (
+              {outfits.pieces?.map((outfitPiece) => (
                 <Row
-                  key={piece.id}
-                  piece={piece}
-                  handleRemove={() => dispatch({ type: 'REMOVE', piece: piece })}
+                  key={outfitPiece.id}
+                  piece={outfitPiece.piece}
+                  handleRemove={() => dispatch({ type: 'REMOVE', piece: outfitPiece })}
                 />
               ))}
             </table>

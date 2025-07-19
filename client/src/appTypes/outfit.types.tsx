@@ -6,17 +6,19 @@ export interface IPiece {
   shop: string;
   img_link: string;
   shop_link: string;
-  pos: {
-    x: number;
-    y: number;
-  };
-  size: {
-    width: number;
-    height: number;
-  }
 }
 
 export interface IOutfit {
   id: string;
-  pieces: IPiece[];
+  user_id: string;
+  title: string;
+}
+
+export interface IOutfitPiece {
+  id: string;
+  posx: number;
+  posy: number;
+  width: number;
+  height:number;
+  piece: IPiece;
 }
