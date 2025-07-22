@@ -13,7 +13,7 @@ export default class OutfitPieceController {
         try {
             const { id, outfitId, pieceId } = req.body;
             await this.outfitPieceServices.addPieceToOutfit(id, outfitId, pieceId);
-            res.status(200);
+            res.sendStatus(200);
         } catch (error) {
             console.error(error);   
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
@@ -26,7 +26,7 @@ export default class OutfitPieceController {
         try {
             const { id, posx, posy, width, height } = req.body;
             await this.outfitPieceServices.updatePieceOnOutfit(id, posx, posy, width, height);
-            res.status(200);
+            res.sendStatus(200);
         } catch (error) {
             console.error(error);   
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
@@ -38,7 +38,7 @@ export default class OutfitPieceController {
     async removePieceOnOutfit(req: Request, res: Response): Promise<void> {
         try {
             await this.outfitPieceServices.removePieceOnOutfit(req.params.id);
-            res.status(200);
+            res.sendStatus(200);
         } catch (error) {
             console.error(error);   
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({

@@ -18,7 +18,7 @@ export interface IOutfitPiece {
   id: string;
   posx: number;
   posy: number;
-  width: number;
-  height:number;
+  width: string;
+  height: string;
   piece: IPiece;
 }

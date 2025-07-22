@@ -12,9 +12,6 @@ export default class PieceController {
     async getPieces(req: Request, res: Response): Promise<void> {
         try {
             const result = await this.pieceService.getPieces();
-
-            console.log({ result: JSON.stringify(result) });
-
             res.status(200).json(result);
         } catch (error) {
             console.error(error);   
@@ -27,9 +24,6 @@ export default class PieceController {
     async getPiecesFromOutfit(req: Request, res: Response): Promise<void> {
         try {
             const result = await this.pieceService.getPiecesFromOutfit(req.params.id);
-
-            console.log({ result: JSON.stringify(result) });
-
             res.status(200).json(result);
         } catch (error) {
             console.error(error);   

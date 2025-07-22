@@ -88,16 +88,21 @@ const Modal = ({
                     <img src={getShopLogo(piece.shop)} alt="Shop" className="w-16 pt-1" />
                   </td>
                   <th>
-                    <button 
-                      className="btn btn-secondary btn-xs w-16" 
-                      onClick={() => dispatch({ type: 'ADD', piece: {
-                        id: uuidv4(),
-                        posx: 0,
-                        posy: 0,
-                        width: 20,
-                        height: 20,
-                        piece: piece,
-                      }})}
+                    <button
+                      className="btn btn-secondary btn-xs w-16"
+                      onClick={() =>
+                        dispatch({
+                          type: 'ADD',
+                          piece: {
+                            id: uuidv4(),
+                            posx: 0,
+                            posy: 0,
+                            width: '200px',
+                            height: '200px',
+                            piece: piece,
+                          },
+                        })
+                      }
                     >
                       Add
                     </button>

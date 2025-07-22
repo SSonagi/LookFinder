@@ -12,9 +12,6 @@ export default class OutfitController {
     async getOutfit(req: Request, res: Response): Promise<void> {
         try {
             const result = await this.outfitService.getOutfit(req.params.id);
-
-            console.log({ result: JSON.stringify(result) });
-
             res.status(200).json(result);
         } catch (error) {
             console.error(error);   
@@ -27,9 +24,6 @@ export default class OutfitController {
     async getOutfits(req: Request, res: Response): Promise<void> {
         try {
             const result = await this.outfitService.getOutfits();
-
-            console.log({ result: JSON.stringify(result) });
-
             res.status(200).json(result);
         } catch (error) {
             console.error(error);   

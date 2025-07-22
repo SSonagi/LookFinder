@@ -10,10 +10,11 @@ export const getPieces = async (): Promise<IPiece[] | undefined> => {
   }
 };
 
-export const getPiecesFromOutfit = async (outfitId: string): Promise<IOutfitPiece[] | undefined> => {
+export const getPiecesFromOutfit = async (
+  outfitId: string,
+): Promise<IOutfitPiece[] | undefined> => {
   try {
     const text = `http://localhost:3000/pieces/${outfitId}`;
-    console.log(text);
     const res = await axios.get<IOutfitPiece[]>(text);
     return res.data;
   } catch (error) {
@@ -21,33 +22,39 @@ export const getPiecesFromOutfit = async (outfitId: string): Promise<IOutfitPiec
   }
 };
 
-export const addPieceToOutfit = async ( id: string, outfitId: string, pieceId: string) => {
+export const addPieceToOutfit = async (id: string, outfitId: string, pieceId: string) => {
   try {
     await axios.post<IOutfitPiece>(`http://localhost:3000/outfitPieces/`, {
       id: id,
       outfitId: outfitId,
-      pieceId: pieceId
+      pieceId: pieceId,
     });
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 };
 
-export const UpdatePieceOnOutfit = async ( id: string, posx: number, posy: number, width: number, height: number) => {
+export const UpdatePieceOnOutfit = async (
+  id: string,
+  posx: number,
+  posy: number,
+  width: string,
+  height: string,
+) => {
   try {
     await axios.put<IOutfitPiece>(`http://localhost:3000/outfitPieces/`, {
       id: id,
       posx: posx,
       posy: posy,
       width: width,
-      height: height
+      height: height,
     });
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 };
 
-export const RemovePieceOnOutfit = async ( outfitPieceid: string ) => {
+export const RemovePieceOnOutfit = async (outfitPieceid: string) => {
   try {
     await axios.delete<IOutfitPiece>(`http://localhost:3000/outfitPieces/${outfitPieceid}`);
   } catch (error) {

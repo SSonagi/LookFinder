@@ -4,21 +4,36 @@ import Outfit from '../components/Outfit';
 import { IOutfitPiece } from '../appTypes/outfit.types';
 import Modal from '../components/Modal';
 import Row from '../components/Table/Row';
-import { getPiecesFromOutfit, addPieceToOutfit, RemovePieceOnOutfit } from '../api/piece.api';
+import {
+  getPiecesFromOutfit,
+  addPieceToOutfit,
+  RemovePieceOnOutfit,
+  UpdatePieceOnOutfit,
+} from '../api/piece.api';
 import { useParams } from 'react-router-dom';
 
 const outfitReducer = (
   state: { title: string; outfitId: string; pieces: IOutfitPiece[] },
-  action: { type: string; piece: IOutfitPiece }
+  action: { type: string; piece: IOutfitPiece },
 ): { title: string; outfitId: string; pieces: IOutfitPiece[] } => {
   switch (action.type) {
     case 'SET': {
-      return { 
-        ...state, 
-        pieces: [
-          ...state.pieces,
-          action.piece
-        ],
+      return {
+        ...state,
+        pieces: [...state.pieces, action.piece],
+      };
+    }
+    case 'UPDATE': {
+      UpdatePieceOnOutfit(
+        action.piece.id,
+        action.piece.posx,
+        action.piece.posy,
+        action.piece.width,
+        action.piece.height,
+      );
+      return {
+        ...state,
+        pieces: state.pieces?.map((piece) => (piece.id == action.piece.id ? action.piece : piece)),
       };
     }
     case 'ADD': {
@@ -26,10 +41,7 @@ const outfitReducer = (
       addPieceToOutfit(id, state.outfitId, action.piece.id);
       return {
         ...state,
-        pieces: [
-          ...state.pieces,
-          action.piece
-        ],
+        pieces: [...state.pieces, action.piece],
       };
     }
     case 'REMOVE':
@@ -52,8 +64,6 @@ const Builder = () => {
     return <div>Error: outfit ID is required</div>;
   }
 
-  console.log(outfitId);
-
   useEffect(() => {
     if (hasRun.current) return;
     hasRun.current = true;
@@ -68,14 +78,18 @@ const Builder = () => {
     fetchPieces();
   }, []);
 
-  const [outfits, dispatch] = useReducer(outfitReducer, {title: 'test', outfitId: outfitId, pieces: []});
+  const [outfits, dispatch] = useReducer(outfitReducer, {
+    title: 'test',
+    outfitId: outfitId,
+    pieces: [],
+  });
 
   return (
     <div className="flex flex-col justify-start items-center">
       <h1 className="text-2xl p-3">Outfit Builder</h1>
       <div className="flex flex-row justify-center w-full">
         <div className="left w-60 min-w-60 h-[33rem]">
-          <Outfit outfit={outfits} />
+          <Outfit outfit={outfits} handleUpdate={dispatch} />
         </div>
         <div className="px-5">
           <div className="join w-full">

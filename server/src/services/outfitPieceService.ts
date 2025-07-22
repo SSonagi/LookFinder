@@ -21,7 +21,7 @@ export default class outfitService {
         }   
     }
 
-    public async updatePieceOnOutfit( id: string, posx: number, posy: number, width: number, height: number ) {
+    public async updatePieceOnOutfit( id: string, posx: number, posy: number, width: string, height: string ) {
         const client = await this.pool.connect();
         try {
             await client.query(
@@ -33,6 +33,7 @@ export default class outfitService {
                     WHERE id = $1;
                 `, [id, posx, posy, width, height]
             );
+            console.log("Done!!!!");
         } finally {
             client.release();
         }   
