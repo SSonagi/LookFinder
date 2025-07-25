@@ -1,38 +1,49 @@
-import { IOutfit, IPiece } from '../appTypes/outfit.types';
-import Piece from './Piece';
-import OutlineImg from '../images/Outline.png';
+import { IOutfitPiece } from '../appTypes/outfit.types';
+import { Rnd } from 'react-rnd';
+import React from 'react';
 
-const Outfit = ({ outfit }: { outfit: IOutfit }) => {
+const Outfit = ({
+  outfit,
+  handleUpdate,
+}: {
+  outfit: { title: string; outfitId: string; pieces: IOutfitPiece[] | undefined };
+  handleUpdate: React.ActionDispatch<[action: { type: string; piece: IOutfitPiece }]>;
+}) => {
   return (
-    <div
-      className="w-full h-full border-[#443627] border-opacity-40 border-2 rounded-lg flex flex-col justify-start items-start bg-center bg-contain bg-no-repeat"
-      style={{ backgroundImage: `url(${OutlineImg})` }}
-    >
+    <div className="w-full h-full border-[#443627] border-opacity-40 border-2 rounded-lg flex flex-col justify-start items-start bg-center bg-contain bg-no-repeat">
       <div className="w-full text-center">Classic Outfit</div>
-      {(
-        [
-          ['Head', outfit.head, false],
-          ['Top', outfit.top, true],
-          ['Bottom', outfit.bottom, true],
-          ['Shoe', outfit.shoe, false],
-        ] as [string, IPiece[], boolean][]
-      ).map(([position, data, double]) => (
-        <div key={position} className="w-full">
-          <div className="text-sm px-1 bg-primary w-min rounded-md border-2 text-[#F7F7F7]">
-            {position}
+      {outfit.pieces?.map((outfitPiece) => (
+        <Rnd
+          key={outfitPiece.id}
+          default={{
+            x: outfitPiece.posx,
+            y: outfitPiece.posy,
+            width: outfitPiece.width,
+            height: outfitPiece.height,
+          }}
+          onDragStop={(_e, d) => {
+            handleUpdate({
+              type: 'UPDATE',
+              piece: { ...outfitPiece, posx: d.x, posy: Math.floor(d.y) },
+            });
+          }}
+          onResizeStop={(_e, _direction, ref, _delta, _position) => {
+            handleUpdate({
+              type: 'UPDATE',
+              piece: { ...outfitPiece, width: ref.style.width, height: ref.style.height },
+            });
+          }}
+          bounds={'parent'}
+          lockAspectRatio={true}
+        >
+          <div className="border-[#443627] border-opacity-40 border-2 w-full h-full bg-[#F7F7F7]">
+            <img
+              src={outfitPiece.piece.img_link}
+              alt={outfitPiece.piece.description}
+              className="w-full h-full object-cover pointer-events-none"
+            />
           </div>
-          <div
-            className={
-              'w-full flex flex-row flex-wrap justify-center items-center gap-3 ' +
-              (double ? 'h-32' : 'h-16')
-            }
-          >
-            {data.slice(0, double ? 6 : 3).map((piece) => (
-              <Piece key={piece.id} piece={piece} />
-            ))}
-            {data.length > (double ? 6 : 3) && <div>...</div>}
-          </div>
-        </div>
+        </Rnd>
       ))}
     </div>
   );

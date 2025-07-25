@@ -1,15 +1,16 @@
 import AmazonImg from '../images/Amazon.png';
 import { getPieces } from '../api/piece.api';
 import { useEffect, useState } from 'react';
-import { IPiece } from '../appTypes/outfit.types';
+import { IOutfitPiece, IPiece } from '../appTypes/outfit.types';
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 const Modal = ({
   id,
   dispatch,
 }: {
   id: string;
-  dispatch: React.ActionDispatch<[action: { type: string; piece: IPiece }]>;
+  dispatch: React.ActionDispatch<[action: { type: string; piece: IOutfitPiece }]>;
 }) => {
   const [loading, setLoading] = useState(true);
   const [pieces, setPieces] = useState<IPiece[]>([]);
@@ -87,52 +88,24 @@ const Modal = ({
                     <img src={getShopLogo(piece.shop)} alt="Shop" className="w-16 pt-1" />
                   </td>
                   <th>
-                    <div className="dropdown dropdown-left dropdown-center">
-                      <div tabIndex={0} role="button" className="btn btn-secondary btn-xs w-16">
-                        Add
-                      </div>
-                      <ul
-                        tabIndex={0}
-                        className="dropdown-content menu bg-base-100 rounded-box z-2 p-0 shadow-md"
-                      >
-                        <li>
-                          <button
-                            className="w-16 font-normal text-xs border-b-2"
-                            onClick={() => dispatch({ type: 'ADD_HEAD', piece: piece })}
-                            onKeyDown={() => dispatch({ type: 'ADD_HEAD', piece: piece })}
-                          >
-                            Head
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            className="w-16 font-normal text-xs border-b-2"
-                            onClick={() => dispatch({ type: 'ADD_TOP', piece: piece })}
-                            onKeyDown={() => dispatch({ type: 'ADD_TOP', piece: piece })}
-                          >
-                            Top
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            className="w-16 font-normal text-xs border-b-2"
-                            onClick={() => dispatch({ type: 'ADD_BOTTOM', piece: piece })}
-                            onKeyDown={() => dispatch({ type: 'ADD_BOTTOM', piece: piece })}
-                          >
-                            Bottom
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            className="w-16 font-normal text-xs border-b-2"
-                            onClick={() => dispatch({ type: 'ADD_SHOE', piece: piece })}
-                            onKeyDown={() => dispatch({ type: 'ADD_SHOE', piece: piece })}
-                          >
-                            Shoe
-                          </button>
-                        </li>
-                      </ul>
-                    </div>
+                    <button
+                      className="btn btn-secondary btn-xs w-16"
+                      onClick={() =>
+                        dispatch({
+                          type: 'ADD',
+                          piece: {
+                            id: uuidv4(),
+                            posx: 0,
+                            posy: 0,
+                            width: '200px',
+                            height: '200px',
+                            piece: piece,
+                          },
+                        })
+                      }
+                    >
+                      Add
+                    </button>
                   </th>
                 </tr>
               </tbody>

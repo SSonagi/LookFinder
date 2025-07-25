@@ -10,8 +10,15 @@ export interface IPiece {
 
 export interface IOutfit {
   id: string;
-  head: IPiece[];
-  top: IPiece[];
-  bottom: IPiece[];
-  shoe: IPiece[];
+  user_id: string;
+  title: string;
+}
+
+export interface IOutfitPiece {
+  id: string;
+  posx: number;
+  posy: number;
+  width: string;
+  height: string;
+  piece: IPiece;
 }
