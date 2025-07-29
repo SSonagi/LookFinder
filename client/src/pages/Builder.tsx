@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import Outfit from '../components/Outfit';
+import EditableOutfit from '../components/EditableOutfit';
 import { IOutfitPiece } from '../appTypes/outfit.types';
 import Modal from '../components/Modal';
 import Row from '../components/Table/Row';
@@ -13,9 +13,9 @@ import {
 import { useParams } from 'react-router-dom';
 
 const outfitReducer = (
-  state: { title: string; outfitId: string; pieces: IOutfitPiece[] },
+  state: { outfitId: string; pieces: IOutfitPiece[] },
   action: { type: string; piece: IOutfitPiece },
-): { title: string; outfitId: string; pieces: IOutfitPiece[] } => {
+): { outfitId: string; pieces: IOutfitPiece[] } => {
   switch (action.type) {
     case 'SET': {
       return {
@@ -33,7 +33,7 @@ const outfitReducer = (
       );
       return {
         ...state,
-        pieces: state.pieces?.map((piece) => (piece.id == action.piece.id ? action.piece : piece)),
+        pieces: state.pieces.map((piece) => (piece.id == action.piece.id ? action.piece : piece)),
       };
     }
     case 'ADD': {
@@ -48,7 +48,7 @@ const outfitReducer = (
       RemovePieceOnOutfit(action.piece.id);
       return {
         ...state,
-        pieces: state.pieces?.filter((piece) => piece.id !== action.piece.id),
+        pieces: state.pieces.filter((piece) => piece.id !== action.piece.id),
       };
     default:
       throw new Error();
@@ -70,7 +70,7 @@ const Builder = () => {
 
     const fetchPieces = async () => {
       const pieces = await getPiecesFromOutfit(outfitId);
-      for (var piece of pieces ? pieces : []) {
+      for (var piece of pieces) {
         dispatch({ type: 'SET', piece });
       }
     };
@@ -79,7 +79,6 @@ const Builder = () => {
   }, []);
 
   const [outfits, dispatch] = useReducer(outfitReducer, {
-    title: 'test',
     outfitId: outfitId,
     pieces: [],
   });
@@ -88,9 +87,7 @@ const Builder = () => {
     <div className="flex flex-col justify-start items-center">
       <h1 className="text-2xl p-3">Outfit Builder</h1>
       <div className="flex flex-row justify-center w-full">
-        <div className="left w-60 min-w-60 h-[33rem]">
-          <Outfit outfit={outfits} handleUpdate={dispatch} />
-        </div>
+        <EditableOutfit outfit={outfits} handleUpdate={dispatch} />
         <div className="px-5">
           <div className="join w-full">
             <input
@@ -112,7 +109,7 @@ const Builder = () => {
                   <th></th>
                 </tr>
               </thead>
-              {outfits.pieces?.map((outfitPiece) => (
+              {outfits.pieces.map((outfitPiece) => (
                 <Row
                   key={outfitPiece.id}
                   piece={outfitPiece.piece}

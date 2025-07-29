@@ -1,52 +1,54 @@
-import { IOutfitPiece } from '../appTypes/outfit.types';
-import { Rnd } from 'react-rnd';
-import React from 'react';
+import { Rnd } from "react-rnd";
+import { getPiecesFromOutfit } from "../api/piece.api";
+import Piece from "./piece";
+import { useEffect, useRef, useState } from "react";
+import { IOutfitPiece } from "../appTypes/outfit.types";
 
 const Outfit = ({
-  outfit,
-  handleUpdate,
-}: {
-  outfit: { title: string; outfitId: string; pieces: IOutfitPiece[] | undefined };
-  handleUpdate: React.ActionDispatch<[action: { type: string; piece: IOutfitPiece }]>;
+    title,
+    outfitId
+} : {
+    title: string,
+    outfitId: string
 }) => {
-  return (
-    <div className="w-full h-full border-[#443627] border-opacity-40 border-2 rounded-lg flex flex-col justify-start items-start bg-center bg-contain bg-no-repeat">
-      <div className="w-full text-center">Classic Outfit</div>
-      {outfit.pieces?.map((outfitPiece) => (
-        <Rnd
-          key={outfitPiece.id}
-          default={{
-            x: outfitPiece.posx,
-            y: outfitPiece.posy,
-            width: outfitPiece.width,
-            height: outfitPiece.height,
-          }}
-          onDragStop={(_e, d) => {
-            handleUpdate({
-              type: 'UPDATE',
-              piece: { ...outfitPiece, posx: d.x, posy: Math.floor(d.y) },
-            });
-          }}
-          onResizeStop={(_e, _direction, ref, _delta, _position) => {
-            handleUpdate({
-              type: 'UPDATE',
-              piece: { ...outfitPiece, width: ref.style.width, height: ref.style.height },
-            });
-          }}
-          bounds={'parent'}
-          lockAspectRatio={true}
-        >
-          <div className="border-[#443627] border-opacity-40 border-2 w-full h-full bg-[#F7F7F7]">
-            <img
-              src={outfitPiece.piece.img_link}
-              alt={outfitPiece.piece.description}
-              className="w-full h-full object-cover pointer-events-none"
-            />
-          </div>
-        </Rnd>
-      ))}
-    </div>
-  );
-};
+    const hasRun = useRef(false);
+    const [pieces, setPieces] = useState<IOutfitPiece[]>([]);
+    
+    useEffect(() => {
+        if (hasRun.current) return;
+        hasRun.current = true;
+
+        const fetchPieces = async () => {
+            const fetchedPieces = await getPiecesFromOutfit(outfitId);
+            setPieces(fetchedPieces);
+        };
+
+        fetchPieces();
+    }, [outfitId]);
+
+    return (
+        <div className="left w-60 min-w-60 h-[33rem]">
+            <div className="w-full h-full border-[#443627] border-opacity-40 border-2 rounded-lg flex flex-col justify-start items-start">
+                <div className="w-full text-center">{title}</div>
+                {pieces.map((outfitPiece) => (
+                    <Rnd
+                        key={outfitPiece.id}
+                        default={{
+                            x: outfitPiece.posx,
+                            y: outfitPiece.posy,
+                            width: outfitPiece.width,
+                            height: outfitPiece.height,
+                        }}
+                        disableDragging={true}
+                        enableResizing= {false}
+                        lockAspectRatio={true}
+                    >
+                        <Piece piece={outfitPiece.piece} />
+                    </Rnd>
+                ))}
+            </div>
+        </div>
+    );
+}
 
 export default Outfit;

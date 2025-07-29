@@ -9,9 +9,9 @@ export default class OutfitController {
         this.outfitService = new OutfitService(0);
     }
 
-    async getOutfit(req: Request, res: Response): Promise<void> {
+    async getOutfitTitle(req: Request, res: Response): Promise<void> {
         try {
-            const result = await this.outfitService.getOutfit(req.params.id);
+            const result = await this.outfitService.getOutfitTitle(req.params.id);
             res.status(200).json(result);
         } catch (error) {
             console.error(error);   
@@ -21,10 +21,23 @@ export default class OutfitController {
         }   
     }
 
-    async getOutfits(req: Request, res: Response): Promise<void> {
+    async getUserOutfits(req: Request, res: Response): Promise<void> {
         try {
-            const result = await this.outfitService.getOutfits();
+            const result = await this.outfitService.getUserOutfits(req.params.id);
             res.status(200).json(result);
+        } catch (error) {
+            console.error(error);   
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                message: (error as Error).message,
+              });
+        }   
+    }
+
+    async updateOutfitTitle(req: Request, res: Response): Promise<void> {
+        try {
+            const { id, title } = req.body;
+            await this.outfitService.updateOutfitTitle(id, title);
+            res.sendStatus(200);
         } catch (error) {
             console.error(error);   
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({

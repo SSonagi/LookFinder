@@ -33,7 +33,6 @@ export default class outfitService {
                     WHERE id = $1;
                 `, [id, posx, posy, width, height]
             );
-            console.log("Done!!!!");
         } finally {
             client.release();
         }   
