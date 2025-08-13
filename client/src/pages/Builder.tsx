@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer, useRef } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import EditableOutfit from '../components/EditableOutfit';
 import { IOutfitPiece } from '../appTypes/outfit.types';
 import Modal from '../components/Modal';
@@ -37,8 +36,7 @@ const outfitReducer = (
       };
     }
     case 'ADD': {
-      const id = uuidv4();
-      addPieceToOutfit(id, state.outfitId, action.piece.id);
+      addPieceToOutfit(state.outfitId, action.piece.id);
       return {
         ...state,
         pieces: [...state.pieces, action.piece],

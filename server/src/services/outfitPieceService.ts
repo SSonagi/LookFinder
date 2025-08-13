@@ -13,7 +13,7 @@ export default class outfitService {
         try {
             await client.query(
                 `INSERT INTO outfitPieces ( id, outfit_id, piece_id, posx, posy, width, height )
-                    VALUES ($1, $2, $3, 0, 0, 20, 20 )
+                    VALUES ($1, $2, $3, 0, 0, 200, 200 )
                 `, [id, outfitId, pieceId]
             );
         } finally {

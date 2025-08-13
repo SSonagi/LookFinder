@@ -11,11 +11,15 @@ export default class outfitService {
         this.user_current = _user
     }
 
-    public async getOutfitTitle( id: String ): Promise<string> {
+    public async getOutfitTitle( id: String ): Promise<string | null> {
             const client = await this.pool.connect();
             try {
                 const result = await client.query(`SELECT title FROM outfits WHERE outfits.id = $1;`, [id]);
-                return result.rows[0].title;
+                if (result.rows.length > 0) {
+                    return result.rows[0].title;
+                } else {
+                    return "";
+                }
             } finally {
                 client.release();
             }
@@ -39,4 +43,17 @@ export default class outfitService {
             client.release();
         }   
     }
+
+    public async addOutfit( id: string, title: string, userId: string ) {
+        const client = await this.pool.connect();
+        try {
+            await client.query(
+                `INSERT INTO outfits ( id, title, user_id )
+                    VALUES ($1, $2, $3  )
+                `, [id, title, userId]
+            );
+        } finally {
+            client.release();
+        }  
+    } 
 }

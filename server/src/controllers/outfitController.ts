@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import OutfitService from '../services/outiftServices';
 import HttpStatus from 'http-status-codes';
+import { v4 as uuidv4 } from 'uuid';
 
 export default class OutfitController {
     private outfitService: OutfitService;
@@ -38,6 +39,20 @@ export default class OutfitController {
             const { id, title } = req.body;
             await this.outfitService.updateOutfitTitle(id, title);
             res.sendStatus(200);
+        } catch (error) {
+            console.error(error);   
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                message: (error as Error).message,
+              });
+        }   
+    }
+
+    async addNewOutfit(req: Request, res: Response): Promise<void> {
+        try {
+            const { userId } = req.body;
+            const id = uuidv4();
+            await this.outfitService.addOutfit( id, '', userId );
+            res.status(200).json(id);
         } catch (error) {
             console.error(error);   
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({

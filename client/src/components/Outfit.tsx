@@ -1,6 +1,6 @@
 import { Rnd } from "react-rnd";
 import { getPiecesFromOutfit } from "../api/piece.api";
-import Piece from "./piece";
+import Piece from "./Piece";
 import { useEffect, useRef, useState } from "react";
 import { IOutfitPiece } from "../appTypes/outfit.types";
 

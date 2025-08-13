@@ -50,3 +50,21 @@ export const updateOutfitTitle = async (
         console.error('Error fetching data:', error);
     }
 }
+
+export const addNewOutfit = async (userId: string): Promise<string> => {
+  try {
+    const res = await axios.post<string>(`http://localhost:3000/outfit/`, {
+      userId: userId
+    });
+
+    if(!res.data) {
+      console.warn("Missing Response!:");
+      return '';
+    }
+
+    return res.data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return '';
+  }
+};

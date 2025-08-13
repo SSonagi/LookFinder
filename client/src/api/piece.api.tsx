@@ -36,15 +36,22 @@ export const getPiecesFromOutfit = async (
   }
 };
 
-export const addPieceToOutfit = async (id: string, outfitId: string, pieceId: string) => {
+export const addPieceToOutfit = async (outfitId: string, pieceId: string): Promise<string> => {
   try {
-    await axios.post<IOutfitPiece>(`http://localhost:3000/outfitPieces/`, {
-      id: id,
+    const res = await axios.post<string>(`http://localhost:3000/outfitPieces/`, {
       outfitId: outfitId,
       pieceId: pieceId,
     });
+
+    if(!res.data) {
+      console.warn("Missing Response!:");
+      return '';
+    }
+
+    return res.data;
   } catch (error) {
     console.error('Error fetching data:', error);
+    return '';
   }
 };
 

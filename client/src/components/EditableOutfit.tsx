@@ -1,7 +1,7 @@
 import { IOutfitPiece } from '../appTypes/outfit.types';
 import { Rnd } from 'react-rnd';
 import React, { useEffect, useRef, useState } from 'react';
-import Piece from './piece';
+import Piece from './Piece';
 import { getOutfitTitle, updateOutfitTitle } from '../api/outfit.api';
 
 const EditableOutfit = ({

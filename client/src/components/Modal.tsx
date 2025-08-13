@@ -3,7 +3,6 @@ import { getPieces } from '../api/piece.api';
 import { useEffect, useState } from 'react';
 import { IOutfitPiece, IPiece } from '../appTypes/outfit.types';
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 const Modal = ({
   id,
@@ -94,7 +93,7 @@ const Modal = ({
                         dispatch({
                           type: 'ADD',
                           piece: {
-                            id: uuidv4(),
+                            id: '',
                             posx: 0,
                             posy: 0,
                             width: '200px',
