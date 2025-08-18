@@ -12,8 +12,8 @@ function Layout() {
         </a>
         <nav className="flex flex-row items-center gap-16 px-10">
           {[
-            ['Your Looks', '/outfits'],
-            ['Look Builder', '/builder'],
+            ['Your Looks', '/outfits/0'],
+            ['Look Builder', '/builder/0'],
             ['Profile', '/profile'],
             ['About', '/about'],
           ].map(([title, url]) => (

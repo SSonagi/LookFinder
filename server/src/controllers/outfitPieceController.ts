@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import OutfitPieceService from '../services/outfitPieceService';
 import HttpStatus from 'http-status-codes';
+import { v4 as uuidv4 } from 'uuid';
 
 export default class OutfitPieceController {
     private outfitPieceServices: OutfitPieceService;
@@ -11,9 +12,10 @@ export default class OutfitPieceController {
 
     async addPieceToOutfit(req: Request, res: Response): Promise<void> {
         try {
-            const { id, outfitId, pieceId } = req.body;
+            const { outfitId, pieceId } = req.body;
+            const id = uuidv4();
             await this.outfitPieceServices.addPieceToOutfit(id, outfitId, pieceId);
-            res.sendStatus(200);
+            res.status(200).json(id);
         } catch (error) {
             console.error(error);   
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
