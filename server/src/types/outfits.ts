@@ -1,9 +1,24 @@
-import IPiece from './piece';
+export interface IPiece {
+  id: string;
+  title: string;
+  description: string;
+  price: string;
+  shop: string;
+  img_link: string;
+  shop_link: string;
+}
 
-export default interface IOutfit {
-    id: string;
-    head: IPiece[];
-    top: IPiece[];
-    bottom: IPiece[];
-    shoe: IPiece[];
+export interface IOutfit {
+  id: string;
+  user_id: string;
+  title: string;
+}
+
+export interface IOutfitPiece {
+  id: string;
+  posx: number;
+  posy: number;
+  width: string;
+  height: string;
+  piece: IPiece;
 }

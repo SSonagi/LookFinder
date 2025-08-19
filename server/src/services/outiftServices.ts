@@ -1,6 +1,6 @@
 import { Pool } from 'pg';
 import { DatabaseConnection } from '../db';
-import IOutfit from '../types/outfits'
+import { IOutfit } from '../types/outfits';
 
 export default class outfitService {
     private pool: Pool;

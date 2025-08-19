@@ -1,6 +1,6 @@
 import { Pool } from 'pg';
 import { DatabaseConnection } from '../db';
-import IPiece from '../types/piece'
+import { IOutfitPiece, IPiece } from '../types/outfits';
 
 export default class outfitService {
     private pool: Pool;
@@ -21,7 +21,7 @@ export default class outfitService {
         }   
     }
 
-    public async getPiecesFromOutfit( id: String ): Promise<any[]> {
+    public async getPiecesFromOutfit( id: String ): Promise<IOutfitPiece[]> {
         const client = await this.pool.connect();
         try {
             const result = await client.query(
