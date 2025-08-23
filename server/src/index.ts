@@ -1,8 +1,12 @@
 import express, { Request, Response } from 'express';
 import bodyParser from "body-parser";
+
+
 import outfitRoutes from "./routes/outfitRoutes";
 import pieceRoutes from "./routes/pieceRoutes";
 import outfitPieceRoutes from "./routes/outfitPieceRoutes";
+import authRoutes from "./routes/authRoutes";
+import userRoutes from "./routes/userRoutes";
 
 const cors = require('cors');
 const app = express();
@@ -15,9 +19,13 @@ app.use(
     extended: true,
   })
 );
+
+
 app.use("/outfit", outfitRoutes);
 app.use("/pieces", pieceRoutes);
 app.use("/outfitPieces", outfitPieceRoutes);
+app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);

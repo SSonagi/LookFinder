@@ -59,8 +59,8 @@ export const UpdatePieceOnOutfit = async (
   id: string,
   posx: number,
   posy: number,
-  width: string,
-  height: string,
+  width: number,
+  height: number,
 ) => {
   try {
     await axios.put<IOutfitPiece>(`http://localhost:3000/outfitPieces/`, {

@@ -58,7 +58,11 @@ const EditableOutfit = ({
             onResizeStop={(_e, _direction, ref, _delta, _position) => {
               handleUpdate({
                 type: 'UPDATE',
-                piece: { ...outfitPiece, width: ref.style.width, height: ref.style.height },
+                piece: { 
+                  ...outfitPiece, 
+                  width: parseInt(ref.style.width), 
+                  height: parseInt(ref.style.height) 
+                },
               });
             }}
             bounds={'parent'}

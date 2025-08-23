@@ -8,14 +8,16 @@ export default class outfitService {
         this.pool = DatabaseConnection.getInstance();
     }
 
-    public async addPieceToOutfit( id: string, outfitId: string, pieceId: string ) {
+    public async addPieceToOutfit( outfitId: string, pieceId: string ) {
         const client = await this.pool.connect();
         try {
-            await client.query(
-                `INSERT INTO outfitPieces ( id, outfit_id, piece_id, posx, posy, width, height )
-                    VALUES ($1, $2, $3, 0, 0, 200, 200 )
-                `, [id, outfitId, pieceId]
+            const result = await client.query(
+                `INSERT INTO outfitPieces ( outfit_id, piece_id, posx, posy, width, height )
+                    VALUES ($1, $2, 0, 0, 100, 100 )
+                    RETURNING id
+                `, [outfitId, pieceId]
             );
+            return result.rows;
         } finally {
             client.release();
         }   
@@ -42,7 +44,7 @@ export default class outfitService {
         const client = await this.pool.connect();
         try {
             await client.query(
-                `DELTE FROM outfitpieces
+                `DELETE FROM outfitpieces
                     WHERE id = $1;
                 `, [id]
             );

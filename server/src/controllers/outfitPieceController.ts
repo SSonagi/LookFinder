@@ -13,9 +13,8 @@ export default class OutfitPieceController {
     async addPieceToOutfit(req: Request, res: Response): Promise<void> {
         try {
             const { outfitId, pieceId } = req.body;
-            const id = uuidv4();
-            await this.outfitPieceServices.addPieceToOutfit(id, outfitId, pieceId);
-            res.status(200).json(id);
+            const result = await this.outfitPieceServices.addPieceToOutfit(outfitId, pieceId);
+            res.status(200).json(result[0].id);
         } catch (error) {
             console.error(error);   
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({

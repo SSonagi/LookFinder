@@ -1,14 +1,16 @@
 import AmazonImg from '../images/Amazon.png';
-import { getPieces } from '../api/piece.api';
+import { addPieceToOutfit, getPieces } from '../api/piece.api';
 import { useEffect, useState } from 'react';
 import { IOutfitPiece, IPiece } from '../appTypes/outfit.types';
 import React from 'react';
 
 const Modal = ({
   id,
+  outfitId,
   dispatch,
 }: {
   id: string;
+  outfitId: string;
   dispatch: React.ActionDispatch<[action: { type: string; piece: IOutfitPiece }]>;
 }) => {
   const [loading, setLoading] = useState(true);
@@ -89,19 +91,20 @@ const Modal = ({
                   <th>
                     <button
                       className="btn btn-secondary btn-xs w-16"
-                      onClick={() =>
+                      onClick={async (e) => {
+                        const outfitPieceId = await addPieceToOutfit(outfitId, piece.id);
                         dispatch({
                           type: 'ADD',
                           piece: {
-                            id: '',
+                            id: outfitPieceId,
                             posx: 0,
                             posy: 0,
-                            width: '200px',
-                            height: '200px',
+                            width: 100,
+                            height: 100,
                             piece: piece,
                           },
                         })
-                      }
+                      }}
                     >
                       Add
                     </button>

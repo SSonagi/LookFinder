@@ -5,7 +5,6 @@ import Modal from '../components/Modal';
 import Row from '../components/Table/Row';
 import {
   getPiecesFromOutfit,
-  addPieceToOutfit,
   RemovePieceOnOutfit,
   UpdatePieceOnOutfit,
 } from '../api/piece.api';
@@ -14,7 +13,7 @@ import { useParams } from 'react-router-dom';
 const outfitReducer = (
   state: { outfitId: string; pieces: IOutfitPiece[] },
   action: { type: string; piece: IOutfitPiece },
-): { outfitId: string; pieces: IOutfitPiece[] } => {
+): { outfitId: string; pieces: IOutfitPiece[]; } => {
   switch (action.type) {
     case 'SET': {
       return {
@@ -36,7 +35,6 @@ const outfitReducer = (
       };
     }
     case 'ADD': {
-      addPieceToOutfit(state.outfitId, action.piece.id);
       return {
         ...state,
         pieces: [...state.pieces, action.piece],
@@ -120,7 +118,7 @@ const Builder = () => {
             + Add Clothing
           </label>
           <input type="checkbox" id="my_modal" className="modal-toggle" />
-          <Modal id="my_modal" dispatch={dispatch} />
+          <Modal id="my_modal" outfitId={outfitId} dispatch={dispatch} />
           <div className="divider m-1 mt-1" />
           <div className="text-end">Total Price: $194.89 - $213.95</div>
         </div>
